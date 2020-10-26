@@ -1,0 +1,55 @@
+{%  extends 'students/main.html' %}
+{% load static %}
+{% block content %}
+
+	<br>
+<br>
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+			<form method="get">
+
+				{% for i in myFilter.form %}
+
+                    <p>{{i.label}} :</p>
+                    <p>{{i}}</p>
+                    <hr>
+
+                {% endfor %}
+
+		    <button class="btn btn-primary" type="submit">Search</button>
+		  </form>
+		</div>
+	</div>
+	
+</div>
+<br>
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>University Name</th>
+                    <th>Degree</th>
+                    <th>Course</th>
+					<th>Location</th>
+					<th>Website</th>
+				</tr>
+
+				{% for i in univ %}
+					<tr>
+						<td>{{i.university_name}}</td>
+                        <td>{{i.degree}}</td>
+                        <td>{{i.course}}</td>
+						<td>{{i.location}}</td>
+						<td><a href = "{{i.Website}}"> {{i.Website}} </a></td>        	
+					</tr>
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
