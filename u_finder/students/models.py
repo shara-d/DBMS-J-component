@@ -22,7 +22,7 @@ class Degree(models.Model):
     level_code = models.ForeignKey(Level, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return self.degree_name
+        return self.degree_code
 
 
 class Student(models.Model):
@@ -45,12 +45,66 @@ class University(models.Model):
         ("Post Graduate", "Post Graduate"),
     )
 
+    CATEGORY1 = (
+            ("B.Tech", "B.Tech"),
+            ("MA", "MA"),
+            ("B.Sc", "B.Sc"),
+            ("BS", "BS"),
+            ("BA LLB", "BA LLB"),
+            ("B.Des.", "B.Des."),
+            ("MBA", "MBA"),
+            ("MS", "MS"),
+            ("MBBS", "MBBS"),
+            ("B.Arch", "B.Arch"),
+            ("BE", "BE"),
+            ("M.Sc", "M.Sc"),
+            ("BA", "BA"),
+            ("DO", "DO"),
+        )
+
+    CATEGORY2 = (
+            ("CSE", "CSE"),
+            ("English", "English"),
+            ("EECS", "EECS"),
+            ("ASL", "ASL"),
+            ("GD", "GD"),
+            ("HRMS", "HRMS"),
+            ("AE", "AE"),
+            ("CSD", "CSD"),
+            ("MBBS", "MBSS"),
+            ("UPA", "UPA"),
+            ("ENI", "ENI"),
+            ("Physics", "Physics"),
+            ("AS", "AS"),
+            ("ECE", "ECE"),
+            ("HCI", "HCI"),
+            ("History", "History"),
+            ("Economics", "Economics"),
+            ("MECS", "MECS"),
+            ("IB", "IB"),
+            ("EEE", "EEE"),
+            ("Liberal Arts", "Liberal Arts"),
+            ("FD", "FD"),
+            ("ENT", "ENT"),
+            ("CE", "CE"),
+        )
+
+    CATEGORY3 = (
+            ("India", "India"),
+            ("USA", "USA"),
+            ("Australia", "Australia"),
+            ("Japan", "Japan"),
+            ("Singapore", "Singapore"),
+            ("China", "China"),
+            ("UK", "UK"),
+        )
+
     university_id = models.CharField(primary_key=True, max_length=200)
     university_name = models.CharField(max_length=200, null=True)
-    degree = models.CharField(max_length=200, null=True)
-    course = models.CharField(max_length=200, null=True)
+    degree = models.CharField(max_length=200, null=True, choices=CATEGORY1)
+    course = models.CharField(max_length=200, null=True, choices=CATEGORY2)
     level = models.CharField(max_length=200, null=True, choices=CATEGORY)
-    location = models.CharField(max_length=200, null=True)
+    location = models.CharField(max_length=200, null=True, choices=CATEGORY3)
     Website = models.CharField(max_length=200, null=True)
 
     def __str__(self):
@@ -79,7 +133,7 @@ class univDegree(models.Model):
     id = str(univ_deg_id)
 
     def __str__(self):
-        return self.id
+        return self.univ_deg_name
 
 
 class Topics(models.Model):
@@ -88,8 +142,6 @@ class Topics(models.Model):
         univDegree, null=True, on_delete=models.SET_NULL)
     id = str(univ_deg_id)
 
-    def __str__(self):
-        return self.id
 
 
 class Courses(models.Model):
@@ -97,6 +149,3 @@ class Courses(models.Model):
     univ_deg_id = models.ForeignKey(
         univDegree, null=True, on_delete=models.SET_NULL)
     id = str(univ_deg_id)
-
-    def __str__(self):
-        return self.id
